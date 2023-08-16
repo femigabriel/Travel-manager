@@ -7,10 +7,9 @@ import Link from "next/link";
 import { useProductContext } from "@/context/PageContext";
 import ImgCrop from "antd-img-crop";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
-const profile = "/assets/images/profile.jpg";
 import type { DatePickerProps } from "antd";
-import { Upload, Avatar, DatePicker, Space } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Upload, DatePicker } from "antd";
+import DateObject from "react-date-object";
 
 export const AddNewClients = ({ successCallBack }: any) => {
   // export const AddNewClients = () => {
@@ -95,6 +94,7 @@ export const AddNewClients = ({ successCallBack }: any) => {
   // Date picker
   const onDateChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date, dateString);
+    
   };
 
   const updateYear = (event: any) => {
@@ -349,7 +349,7 @@ export const AddNewClients = ({ successCallBack }: any) => {
                 <label className="" htmlFor="">
                   Date of Birth
                 </label>
-                <DatePicker onChange={onDateChange} />
+                <DatePicker format="YYYY-MM-DD" onChange={onDateChange} />
 
                 {error && name.length <= 0 ? (
                   <label className="text-red-400 font-normal text-base	">
