@@ -19,4 +19,5 @@ export interface Product {
   education: string,
   purpose:string,
   profile: any,
+  place: string
 }

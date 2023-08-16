@@ -10,6 +10,7 @@ import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import type { DatePickerProps } from "antd";
 import { Upload, DatePicker } from "antd";
 import DateObject from "react-date-object";
+import moment from "moment";
 
 export const AddNewClients = ({ successCallBack }: any) => {
   // export const AddNewClients = () => {
@@ -23,6 +24,8 @@ export const AddNewClients = ({ successCallBack }: any) => {
   const [year, setYear] = useState(0);
   const [country, setCountry] = useState("");
   const [dob, setDob] = useState("");
+  const [purpose, setPurpose] = useState("");
+  const [place, setPlace] = useState("");
   const [error, setError] = useState(false);
 
   const { addProduct } = useProductContext();
@@ -43,6 +46,7 @@ export const AddNewClients = ({ successCallBack }: any) => {
       interest: "",
       education: "",
       purpose: "",
+      place: "",
       profile: undefined,
     });
     setName("");
@@ -55,6 +59,7 @@ export const AddNewClients = ({ successCallBack }: any) => {
     setYear(0);
     setCountry("");
     setDob("");
+    setPlace("");
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,11 +81,15 @@ export const AddNewClients = ({ successCallBack }: any) => {
   const updateOccupation = (event: any) => {
     setOccupation(event.target.value);
   };
-  const updateDob = (event: any) => {
-    setDob(event.target.value);
+  const updateDob = (date: any) => {
+    console.log(date);
   };
+
   const updateDescription = (event: any) => {
     setDescription(event.target.value);
+  };
+  const updatePlace = (event: any) => {
+    setPlace(event.target.value);
   };
 
   // Select
@@ -94,11 +103,10 @@ export const AddNewClients = ({ successCallBack }: any) => {
   // Date picker
   const onDateChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date, dateString);
-    
   };
 
-  const updateYear = (event: any) => {
-    setYear(event.target.value);
+  const updatePurpose = (event: any) => {
+    setPurpose(event.target.value);
   };
   const updateCountry = (event: any) => {
     setCountry(event.target.value);
@@ -126,9 +134,11 @@ export const AddNewClients = ({ successCallBack }: any) => {
       phone.length == 0 ||
       address.length == 0 ||
       phone.length == 0 ||
+      place.length == 0 ||
+      description.length == 0 ||
+      occupation.length == 0 ||
       address.length == 0
-      // description.length == 0 ||
-      // occupation.length == 0 ||
+
       // country.length == 0
     ) {
       setError(true);
@@ -143,8 +153,11 @@ export const AddNewClients = ({ successCallBack }: any) => {
       description,
       occupation,
       country,
+      dob,
+      purpose,
+      place,
     });
-    console.log(name, phone, email);
+    console.log(name, phone, email, dob);
   };
 
   // Image upload
@@ -335,9 +348,9 @@ export const AddNewClients = ({ successCallBack }: any) => {
                   className=""
                   placeholder=""
                   name="name"
-                  onChange={updateName}
+                  onChange={updatePlace}
                 />
-                {error && name.length <= 0 ? (
+                {error && place.length <= 0 ? (
                   <label className="text-red-400 font-normal text-base	">
                     Input can not be empty
                   </label>
@@ -349,9 +362,18 @@ export const AddNewClients = ({ successCallBack }: any) => {
                 <label className="" htmlFor="">
                   Date of Birth
                 </label>
-                <DatePicker format="YYYY-MM-DD" onChange={onDateChange} />
+                <DatePicker
+                  format="YYYY/MM/DD"
+                  className="font-semibold"
+                  onChange={updateDob}
+                />
+                {/* <DatePicker value={moment(object.startDate, "MM/DD/YYYY")} /> */}
 
-                {error && name.length <= 0 ? (
+                {/* <DatePicker
+                  
+                   onChange={(date) => console.log(date)}
+                /> */}
+                {error && dob.length <= 0 ? (
                   <label className="text-red-400 font-normal text-base	">
                     Input can not be empty
                   </label>
@@ -390,7 +412,7 @@ export const AddNewClients = ({ successCallBack }: any) => {
                   name="phone"
                   onChange={updateOccupation}
                 />
-                {error && phone.length <= 0 ? (
+                {error && occupation.length <= 0 ? (
                   <label className="text-red-400 font-normal text-base	">
                     Input can not be empty
                   </label>
@@ -477,9 +499,9 @@ export const AddNewClients = ({ successCallBack }: any) => {
                   className=""
                   placeholder=""
                   name="email"
-                  onChange={updateEmail}
+                  onChange={updatePurpose}
                 />
-                {error && email.length <= 0 ? (
+                {error && setPurpose.length <= 0 ? (
                   <label className="text-red-400 font-normal text-base	">
                     Input can not be empty
                   </label>
